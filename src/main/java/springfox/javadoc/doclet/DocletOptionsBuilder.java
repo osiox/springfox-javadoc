@@ -36,7 +36,7 @@ public class DocletOptionsBuilder {
 
     DocletOptions build() {
         if (Strings.isNullOrEmpty(propertyFilePath)) {
-            throw new IllegalStateException("Usage: javadoc -classdir classes directory [-exceptionRef true|false (generate references to exception"
+            throw new IllegalArgumentException("Usage: javadoc -classdir classes directory [-exceptionRef true|false (generate references to exception"
               + " classes)] -doclet  ...");
         }
         return new DocletOptions(propertyFilePath, documentExceptions);

@@ -102,6 +102,9 @@ public class SwaggerPropertiesDoclet {
     @SuppressWarnings("WeakerAccess")
     public static int optionLength(String option) {
         int length = 0;
+        if (option.equalsIgnoreCase(DIRECTORY_OPTION)) {
+            length = 2;
+        }
         if (option.equalsIgnoreCase(CLASS_DIR_OPTION)) {
             length = 2;
         }
@@ -129,7 +132,7 @@ public class SwaggerPropertiesDoclet {
         try {
             docletOptions = parser.parse();
             return true;
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             reporter.printError(e.getMessage());
         }
         return false;

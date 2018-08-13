@@ -19,6 +19,8 @@
 package springfox.javadoc.doclet;
 
 class DocletOptionParser {
+
+    static final String DIRECTORY_OPTION = "-d";
     static final String CLASS_DIR_OPTION = "-classdir";
     static final String EXCEPTION_REF_OPTION = "-exceptionRef";
     private final String[][] options;
@@ -31,11 +33,14 @@ class DocletOptionParser {
         String propertyFilePath = "";
         Boolean documentExceptions = false;
         for (String[] each : options) {
-            if (CLASS_DIR_OPTION.equalsIgnoreCase(each[0])) {
-                propertyFilePath = each[1];
+            if(CLASS_DIR_OPTION.equalsIgnoreCase(each[0])) {
+                throw new IllegalArgumentException(CLASS_DIR_OPTION + " option is deprecated. Use " + DIRECTORY_OPTION + " instead.");
             }
             if (EXCEPTION_REF_OPTION.equalsIgnoreCase(each[0])) {
                 documentExceptions = Boolean.valueOf(each[1]);
+            }
+            if (DIRECTORY_OPTION.equalsIgnoreCase(each[0])) {
+                propertyFilePath = each[1];
             }
         }
 

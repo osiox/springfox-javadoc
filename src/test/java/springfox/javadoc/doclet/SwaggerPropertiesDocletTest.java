@@ -53,9 +53,20 @@ public class SwaggerPropertiesDocletTest {
     }
 
     @Test
-    public void testValidOptionLength() {
+    public void testValidClassDirOptionLength() {
         assertEquals(2, optionLength("-classdir"));
     }
+    @Test
+    public void testValidDirectoryOptionLength() {
+        assertEquals(2, optionLength("-d"));
+    }
+
+    @Test
+    public void testValidExceptionRefOptionLength() {
+        assertEquals(2, optionLength("-exceptionRef"));
+    }
+
+
 
     @Test
     public void testInvalidOptionLength() {
@@ -64,11 +75,20 @@ public class SwaggerPropertiesDocletTest {
 
     @Test
     public void testValidOptions() {
-        String[][] options = new String[][] { new String[] { "foo", "bar" }, new String[] { "-classdir", "dummy" } };
+        String[][] options = new String[][] { new String[] { "foo", "bar" }, new String[] { "-d", "dummy" } };
         DummyDocErrorReporter reporter = new DummyDocErrorReporter();
         assertTrue(validOptions(options, reporter));
         assertTrue(reporter.getErrors().isEmpty());
     }
+
+    @Test
+    public void testDeprecatedClassDirOptions() {
+        String[][] options = new String[][] { new String[] { "foo", "bar" }, new String[] { "-classdir", "dummy" } };
+        DummyDocErrorReporter reporter = new DummyDocErrorReporter();
+        assertFalse(validOptions(options, reporter));
+        assertTrue(reporter.getErrors().contains("-classdir"));
+    }
+
 
     @Test
     public void testInvalidOptions() {
@@ -91,7 +111,7 @@ public class SwaggerPropertiesDocletTest {
           "-subpackages",
           "springfox.javadoc",
           "springfox.javadoc",
-          "-classdir",
+          "-d",
           BUILD_PROPERTY_FILE_LOCATION
         };
 
